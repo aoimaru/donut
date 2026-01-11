@@ -11,14 +11,21 @@ resource "aws_ecs_task_definition" "this" {
   container_definitions = templatefile(
     "${path.module}/container_definition_template.json",
     {
-      ecr_repository_url = data.aws_ecr_repository.app.repository_url
-      image_tag          = "latest"
+      ecr_repository_url_for_app = data.aws_ecr_repository.app.repository_url
+      image_tag_for_app          = "latest"
+      container_port_for_app     = 8080
+      log_group_name_for_app     = aws_cloudwatch_log_group.ecs.name
+      region_for_app             = "ap-northeast-1"
+      log_stream_prefix_for_app  = "app"
 
-      container_port     = 8080
-
-      log_group_name     = aws_cloudwatch_log_group.ecs.name
-      region             = "ap-northeast-1"
-      log_stream_prefix  = "ecs"
+      ecr_repository_url_for_opmng = data.aws_ecr_repository.app.repository_url
+      image_tag_for_opmng          = "latest"
+      
+      # こっちいらないかも...
+      # container_port_for_opmng     = 8080
+      # log_group_name_for_opmng     = aws_cloudwatch_log_group.ecs.name
+      # region_for_opmng             = "ap-northeast-1"
+      # log_stream_prefix_for_opmng  = "opmng"
     }
   )
 }

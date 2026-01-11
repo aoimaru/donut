@@ -1,12 +1,12 @@
 [
   {
     "name": "app",
-    "image": "${ecr_repository_url}:${image_tag}",
+    "image": "${ecr_repository_url_for_app}:${image_tag_for_app}",
     "essential": true,
 
     "portMappings": [
       {
-        "containerPort": "${container_port}",
+        "containerPort": "${container_port_for_app}",
         "protocol": "tcp"
       }
     ],
@@ -14,10 +14,15 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "${log_group_name}",
-        "awslogs-region": "${region}",
-        "awslogs-stream-prefix": "${log_stream_prefix}"
+        "awslogs-group": "${log_group_name_for_app}",
+        "awslogs-region": "${region_for_app}",
+        "awslogs-stream-prefix": "${log_stream_prefix_for_app}"
       }
     }
+  },
+  {
+    "name": "opmng",
+    "image": "${ecr_repository_url_for_opmng}:${image_tag_for_opmng}",
+    "essential": false
   }
 ]

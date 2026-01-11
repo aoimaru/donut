@@ -5,6 +5,8 @@ resource "aws_ecs_service" "app" {
   desired_count   = 2
   launch_type     = "FARGATE"
 
+
+  # アプリケーション用のサービスには
   network_configuration {
     subnets         = [
         data.aws_subnet.public_subnet_1a,

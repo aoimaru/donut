@@ -1,0 +1,23 @@
+[
+  {
+    "name": "app",
+    "image": "${ecr_repository_url}:${image_tag}",
+    "essential": true,
+
+    "portMappings": [
+      {
+        "containerPort": "${container_port}",
+        "protocol": "tcp"
+      }
+    ],
+
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group_name}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "${log_stream_prefix}"
+      }
+    }
+  }
+]

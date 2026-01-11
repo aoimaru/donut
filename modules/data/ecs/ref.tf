@@ -177,16 +177,3 @@ data "aws_secretsmanager_secret" "rds_secret" {
 data "aws_s3_bucket" "alb_log_bucket" {
   bucket = "${var.project}-${var.environment}-${var.ver}-alb-log-bucket"
 }
-
-# Route53の情報を取得
-# AレコードはALBを指しているのでcomputeに依存
-data "aws_route53_zone" "host_zone" {
-  name = var.domain
-}
-
-# acm(証明書情報)の追加
-data "aws_acm_certificate" "tokyo_cert" {
-  domain   = "*.${var.domain}"
-  statuses = ["ISSUED"]
-  types    = ["AMAZON_ISSUED"]
-}

@@ -51,3 +51,45 @@ data "aws_security_group" "ecs_sg" {
 data "aws_ecr_repository" "app" {
   name = "${var.project}-${var.environment}-app"
 }
+
+data "aws_ecr_repository" "opmng" {
+  name = "${var.project}-${var.environment}-opmng"
+}
+
+data "aws_iam_role" "ecs_task_execution" {
+  name = "${var.project}-${var.environment}-${var.ver}-ecs-task-exec"
+}
+
+data "aws_iam_role" "ecs_task" {
+  name = "${var.project}-${var.environment}-${var.ver}-ecs-task"
+}
+
+## サブネットの取り込み
+data "aws_subnet" "private_subnet_1a" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.project}-${var.environment}-${var.ver}-private-subnet-1a"]
+  }
+  vpc_id = data.aws_vpc.selected.id
+}
+data "aws_subnet" "private_subnet_1c" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.project}-${var.environment}-${var.ver}-private-subnet-1c"]
+  }
+  vpc_id = data.aws_vpc.selected.id
+}
+data "aws_subnet" "public_subnet_1a" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.project}-${var.environment}-${var.ver}-public-subnet-1a"]
+  }
+  vpc_id = data.aws_vpc.selected.id
+}
+data "aws_subnet" "public_subnet_1c" {
+  filter {
+    name   = "tag:Name"
+    values = ["${var.project}-${var.environment}-${var.ver}-public-subnet-1c"]
+  }
+  vpc_id = data.aws_vpc.selected.id
+}

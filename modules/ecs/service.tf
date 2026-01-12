@@ -16,7 +16,7 @@ resource "aws_ecs_service" "app" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.app.arn
+    target_group_arn = aws_lb_target_group.ecs_alb_target_group.arn
     container_name   = "app" #TODO 確定させる
     container_port   = 8080
   }

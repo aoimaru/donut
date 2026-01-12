@@ -5,9 +5,9 @@
 # }
 
 # secrets-managerの取り込み
-data "aws_secretsmanager_secret" "rds_secret" {
-  name = "${var.project}-${var.environment}-${var.ver}-secrets"
-}
+# data "aws_secretsmanager_secret" "rds_secret" {
+#   name = "${var.project}-${var.environment}-${var.ver}-secrets"
+# }
 
 # data "aws_iam_openid_connect_provider" "github" {
 #   url = "https://token.actions.githubusercontent.com"

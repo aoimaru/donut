@@ -69,7 +69,7 @@ resource "aws_iam_role_policy" "ecs_exec" {
 # secrets manager 読み書き用のIAMポリシーをアタッチ
 resource "aws_iam_role_policy_attachment" "ecs_secrets_read" {
   role       = aws_iam_role.ecs_task.name
-  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadOnly"
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
 }
 
 # こっちも必要に応じて追加する

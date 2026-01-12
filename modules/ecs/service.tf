@@ -9,8 +9,8 @@ resource "aws_ecs_service" "app" {
   # アプリケーション用のサービスには
   network_configuration {
     subnets         = [
-        data.aws_subnet.public_subnet_1a,
-        data.aws_subnet.public_subnet_1c
+        data.aws_subnet.selected["public_1a"],
+        data.aws_subnet.selected["public_1c"]
     ]
     security_groups = [data.aws_security_group.ecs_sg.id] # TODO セキュリティグループの作成
   }

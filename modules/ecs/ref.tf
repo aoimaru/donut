@@ -65,31 +65,22 @@ data "aws_iam_role" "ecs_task" {
 }
 
 ## サブネットの取り込み
-data "aws_subnet" "private_subnet_1a" {
-  filter {
-    name   = "tag:Name"
-    values = ["${var.project}-${var.environment}-${var.ver}-private-subnet-1a"]
+locals {
+  subnets = {
+    public_1a  = "${var.project}-${var.environment}-${var.ver}-public-subnet-1a"
+    public_1c  = "${var.project}-${var.environment}-${var.ver}-public-subnet-1c"
+    private_1a = "${var.project}-${var.environment}-${var.ver}-private-subnet-1a"
+    private_1c = "${var.project}-${var.environment}-${var.ver}-private-subnet-1c"
   }
-  vpc_id = data.aws_vpc.selected.id
 }
-data "aws_subnet" "private_subnet_1c" {
+
+data "aws_subnet" "selected" {
+  for_each = local.subnets
+
   filter {
     name   = "tag:Name"
-    values = ["${var.project}-${var.environment}-${var.ver}-private-subnet-1c"]
+    values = [each.value]
   }
-  vpc_id = data.aws_vpc.selected.id
-}
-data "aws_subnet" "public_subnet_1a" {
-  filter {
-    name   = "tag:Name"
-    values = ["${var.project}-${var.environment}-${var.ver}-public-subnet-1a"]
-  }
-  vpc_id = data.aws_vpc.selected.id
-}
-data "aws_subnet" "public_subnet_1c" {
-  filter {
-    name   = "tag:Name"
-    values = ["${var.project}-${var.environment}-${var.ver}-public-subnet-1c"]
-  }
+
   vpc_id = data.aws_vpc.selected.id
 }
